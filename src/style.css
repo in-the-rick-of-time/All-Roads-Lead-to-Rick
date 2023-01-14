@@ -1,0 +1,53 @@
+.error-render {
+    color:darkred;
+    font-size: 10px
+}
+
+.wrapper {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    font-size: 12px;
+}
+
+.form-attribute {
+    height: 100%;
+    width: 450px;
+    text-align: center;
+}
+
+.text {
+    width: 450px;
+    text-align: left;
+}
+
+.title {
+    font-size: 8px;
+    color: azure;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.heading {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item {
+    margin-bottom: 4px;
+}
+
+.content{
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
+.content.show{
+    height: auto;
+    max-height: 999px;
+    transition: all 0.5s;
+}
