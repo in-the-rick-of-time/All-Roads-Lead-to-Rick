@@ -1,0 +1,90 @@
+.split-left {
+    height: 100%;
+    width: 80%;
+    position:fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 0px;
+    left: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.split-right {
+    height: 100%;
+    width: 50%;
+    position:fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 0px;
+    right: 0;
+    background-size: cover;
+  }
+
+.body {
+font-family: Arial;
+color: white;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .disclaimer {
+    color: white;
+    font-size: 15px;
+    text-align: left;
+  }
+  
+  .form-sizing{
+    width:120%;
+    text-align: center;
+  }
+
+.error-message{
+    color: red;
+}
+
+@font-face {
+    font-family: aero;
+    src: url("/static/fonts/aero.ttf");
+}
+.title{
+    padding-bottom: 1cm;
+    font-family:aero;
+    font-size: 60px;
+    color: white;
+}
+
+.background{
+    overflow: hidden;
+    background-image: url("https://img.freepik.com/free-vector/tridimensional-geometric-retro-futuristic-background_52683-19279.jpg?w=826&t=st=1673719609~exp=1673720209~hmac=3d97142a1d2f6fd83b8ba7829edb6803c9b07294da25d49cd5a28fe6e89c3d17");
+    background-size: cover;
+}
+
+.dropdown{
+    text-align: center;
+    font: 1em sans-serif;
+
+}
+
+.rick{
+    max-width:fit-content;
+
+}
+
+div#loading {
+    width: 200px;
+    height: 200px;
+    display: none;
+    background: url("static/images/loadingimage.gif") no-repeat;
+    cursor: wait;
+    background-size: contain;
+}

@@ -1,0 +1,35 @@
+<!--using this for testing with actual data from matthew-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/results.css') }}">
+</head>
+<body>
+    <!--{% for id in ids %}
+        <a href="https://www.youtube.com/watch?v=_EtHyY2VTGA">
+            <img className="thumbnails" src="https://i.ytimg.com/vi/_EtHyY2VTGA/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCqu25VRrDFip342rtGO8zWWw56Ig">
+            <h1 className="song-title">[BGM for work] Fashionable songs you want to play in your room - Good Vibes - Daily Routine</h1>
+        </a>
+        {% endfor %}-->
+    <div>
+        <ul class="cards">
+            {% for id in ids %}
+                <li class="card">
+                    <div class="container">
+                        <a href="https://www.youtube.com/watch?v={{id}}" target="_blank" rel="noopener noreferrer">
+                            <img src="https://i.ytimg.com/vi/{{id}}/hqdefault.jpg" alt="thumbnail" style="width:100%">
+                            <div>
+                            <h4 class="song-title"><b>{{id}}</b></h4>
+                        </a>
+                        <p class="song-publisher">{{id}}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>         
+</body>
+</html>
