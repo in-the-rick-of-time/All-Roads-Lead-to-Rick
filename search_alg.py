@@ -215,10 +215,3 @@ class Search_Alg():
 	def check_if_found_rick(self, vid_id):
 		if vid_id == self.RICKROLL_ID:
 			return True
-
-def main():
-	rickbot = Search_Alg(api_key="***REMOVED***")
-	x,y,z = rickbot.find_rick(starting_vid_url="https://www.youtube.com/watch?v=djV11Xbc914&ab_channel=a-ha")
-	print(x,y,z)
-if __name__ == "__main__":
-	main()
