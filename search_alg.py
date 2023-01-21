@@ -76,6 +76,7 @@ class Search_Alg():
 		return re.search(regex, url).group()
 
 	def get_duration(self,response,index=0):
+		print(response, index)
 		raw_duration = response["items"][index]["contentDetails"]["duration"]
 		regex = r"P(?!$)(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?T(?=\d+[HMS])(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$"
 		if raw_duration != "P0D":
@@ -180,8 +181,8 @@ class Search_Alg():
 
 				snippet = data["snippet"] # index 50-99 will be in response 2, indexed from 0, hence -50
 				channel_name = snippet["channelTitle"]
-				vid_viewcount = data["statistics"]["viewCount"]
 				cat_id = int(snippet["categoryId"])
+				vid_viewcount = data["statistics"]["viewCount"]
 
 				if cat_id in self.visited_cats:
 					continue

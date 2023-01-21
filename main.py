@@ -18,11 +18,11 @@ def home():
 	if request.method == "GET":
 		return render_template('index.html')
 	if request.method == 'POST':
-		apikey = request.form['apikey']
-		startingvid = request.form['starturl']
+		apikey = request.form['APIkey']
+		startingvid = request.form['youtubeURL']
 		rickbot = Search_Alg(api_key=apikey)
 		try:
-			session["vid_ids"], session["videos_data"], session["statistics"] = rickbot.find_rick(starting_vid=startingvid)
+			session["vid_ids"], session["videos_data"], session["statistics"] = rickbot.find_rick(starting_vid_url=startingvid)
 		except ValueError as e:
 			if str(e) == "400":
 				return render_template("400.html")
@@ -100,4 +100,4 @@ def credentials_to_dict(credentials):
 
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=5000)
+	app.run()
