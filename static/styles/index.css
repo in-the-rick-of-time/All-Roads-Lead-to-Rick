@@ -81,8 +81,8 @@ color: white;
 }
 
 div#loading {
-    width: 200px;
-    height: 200px;
+    width: 30%;
+    height: 30%;
     display: none;
     background: url("../images/loadingimage.gif") no-repeat;
     cursor: wait;
