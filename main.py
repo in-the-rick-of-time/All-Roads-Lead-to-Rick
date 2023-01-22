@@ -21,8 +21,9 @@ def home():
 		apikey = request.form['APIkey']
 		startingvid = request.form['youtubeURL']
 		rickbot = Search_Alg(api_key=apikey)
+		session.clear()
 		try:
-			session["vid_ids"], session["videos_data"], session["statistics"] = rickbot.find_rick(starting_vid_url=startingvid)
+			session["videos_data"], session["statistics"] = rickbot.find_rick(starting_vid_url=startingvid)
 		except ValueError as e:
 			if str(e) == "400":
 				return render_template("400.html")
@@ -84,8 +85,9 @@ def callback():
 def createplaylist():
 	if 'credentials' in session and 'vid_ids' in session and 'playlist' not in session:
 		credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+		vid_ids = [video["id"] for video in session["videos_data"]]
 		playlist_creator = Create_Playlist(API_SERVICE_NAME, API_VERSION, credentials)
-		new_playlist_id = playlist_creator.createPlaylist(session['vid_ids'])
+		new_playlist_id = playlist_creator.createPlaylist(vid_ids)
 		return new_playlist_id
 	else:
 		return redirect(url_for('home'))
@@ -100,4 +102,4 @@ def credentials_to_dict(credentials):
 
 
 if __name__ == "__main__":
-	app.run()
+	app.run(debug=True)

@@ -20,8 +20,8 @@
       {% for vid in videos %}
       <li class="card">
         <div class="container">
-          <a href="{{vid['url']}}" target="_blank" rel="noopener noreferrer">
-            <img src="{{vid['thumbnail_url']}}" alt="thumbnail" style="width: 100%;">
+          <a href="https://www.youtube.com/watch?v={{vid['id']}}" target="_blank" rel="noopener noreferrer">
+            <img src="https://img.youtube.com/vi/{{vid['id']}}/hqdefault.jpg" alt="thumbnail" style="width: 100%;">
             <div>
               <h4 class="song-title"><b>{{vid['title']}}</b></h4>
           </a>

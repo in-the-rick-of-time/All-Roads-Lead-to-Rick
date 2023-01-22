@@ -3,6 +3,7 @@ from collections import namedtuple
 import googleapiclient.discovery
 from googleapiclient.errors import HttpError
 import re
+import sys
 
 class Search_Alg():
 
@@ -14,9 +15,7 @@ class Search_Alg():
 
 	def __init__(self, api_key):
 		self.visited_channels = set() # get list of visited channels and categories. We do not revisit them
-		self.visited_cats = set()
 		self.visited_vid_details = list()
-		self.visited_vid_ids = list()
 		self.statistics = {"duration":0, "viewcount":0, "count":0}
 		
 		with open(self.TAGS_JSON_FILENAME) as tags_file:
@@ -47,7 +46,7 @@ class Search_Alg():
 			curr_vid_id = curr_vid_details.vid_id
 
 		else:
-			return self.visited_vid_ids, self.visited_vid_details, self.statistics
+			return self.visited_vid_details, self.statistics
 
 	def handle_request(self, request): # wrapper to handle request and error
 		try:
@@ -68,7 +67,7 @@ class Search_Alg():
 			self.update_total_stats(vid_id, duration, viewcount)
 		else:
 			self.update_total_stats(vid_id)
-		self.add_video_details(vid_id, vid_title, channel_title)
+		self.visited_vid_details.append({'id':vid_id, 'title':vid_title, 'publisher':channel_title})
 	
 	def get_stats_and_details(self, vid_id): # specifically designed for first video. Get stats and details at once.
 		request = self.youtube.videos().list(
@@ -86,12 +85,6 @@ class Search_Alg():
 
 		return vid_title, channel_title, duration, viewcount
 
-	def add_video_details(self, vid_id, vid_title, channel_title): # take in the named tuple
-		self.visited_vid_ids.append(vid_id)
-		url = "https://www.youtube.com/watch?v=" + vid_id
-		thumbnail_url = "https://img.youtube.com/vi/" + vid_id + "/hqdefault.jpg"
-		self.visited_vid_details.append({'url':url, 'thumbnail_url':thumbnail_url, 'title':vid_title, 'publisher':channel_title})
-
 	def update_total_stats(self, vid_id, duration=None, viewcount=None): # add visited video data and stats to global lists
 		if duration == None or viewcount == None: # starting video will have been searched earlier. No need to get duration and viewcount again
 			duration, viewcount = self.get_stats(vid_id)
@@ -105,7 +98,6 @@ class Search_Alg():
 				id=vid_id
 			)
 		response = self.handle_request(request)
-		
 		duration = self.get_duration(response["items"][0]["contentDetails"]["duration"])
 		viewcount = int(response["items"][0]["statistics"]["viewCount"])
 
@@ -165,7 +157,7 @@ class Search_Alg():
 			if vid_id == self.RICKROLL_ID: # ladies and gentlemen, we got him!
 				return videoDetails(vid_id, vid_title, channel_title, cat_id, None) # actually don't need cat_id or score, but include by convention
 
-			if channel_title in self.visited_channels or cat_id in self.visited_cats: # if channel or cat has already been visited, don't even bother looking up the metadata
+			if channel_title in self.visited_channels: # if channel has already been visited, don't even bother looking up the metadata
 				continue
 
 			if cat_id != self.MUSIC_CATEGORY_ID and has_music_video: # if this is not a music vid, and we alr have music vids in the related or it is a category we have visited, ignore this vid
@@ -180,8 +172,6 @@ class Search_Alg():
 				best_video = videoDetails(vid_id, vid_title, channel_title, cat_id, score)
 
 		self.visited_channels.add(best_video.channel_title) # Adds channel of best video into visited channels. Let's not go back
-		if best_video.cat_id != self.MUSIC_CATEGORY_ID:
-			self.visited_cats.add(best_video.cat_id) # only add into visited if its not music
 
 		return best_video
 
