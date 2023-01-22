@@ -84,7 +84,7 @@ div#loading {
     width: 200px;
     height: 200px;
     display: none;
-    background: url("static/images/loadingimage.gif") no-repeat;
+    background: url("../images/loadingimage.gif") no-repeat;
     cursor: wait;
     background-size: contain;
 }
