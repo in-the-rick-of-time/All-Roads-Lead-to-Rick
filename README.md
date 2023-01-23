@@ -1,7 +1,7 @@
 # All Roads Lead to Rick (Hack and Roll '23)
 
 ### Description ###
-Inspired by ![the Wikipedia Game](https://en.wikipedia.org/wiki/Wikipedia:Wiki_Game) and the zeitgeist of the 21st century, _All Roads Lead to Rick_ is a web app that will find its way from any Youtube URL in the world to our beloved ![Rickroll](https://www.youtube.com/watch?v=dQw4w9WgXcQ), all by traversing through a chain of suggested videos. The web app also provides the ability to create a playlist out of the traversed videos.
+Inspired by [the Wikipedia Game](https://en.wikipedia.org/wiki/Wikipedia:Wiki_Game) and the zeitgeist of the 21st century, _All Roads Lead to Rick_ is a web app that will find its way from any Youtube URL in the world to our beloved ![Rickroll](https://www.youtube.com/watch?v=dQw4w9WgXcQ), all by traversing through a chain of suggested videos. The web app also provides the ability to create a playlist out of the traversed videos.
 
 ### Usage Guide ###
 On the home page, you are prompted to enter your _API Key_ and _Youtube URL_. The user's API key is required, as the Youtube provides limited quota for its API usage. More information on setting up a key can be found [below](#setting-up-the-api-key). For our demo, we will use ![Youtube's default TED video by Dr Amy Cuddy](https://www.youtube.com/watch?v=Ks-_Mh1QhMc).
