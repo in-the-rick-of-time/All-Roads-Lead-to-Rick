@@ -43,9 +43,9 @@ def index():
 @app.route('/results', methods=['GET'])
 def results():
 	if request.method == 'GET':
-		if "vid_ids" not in session:
+		if "videos_data" not in session:
 			return redirect(url_for('home'))
-		return render_template('results.html', videos=session["videos_data"], ids=session["vid_ids"], statistics=session["statistics"])
+		return render_template('results.html', videos=session["videos_data"], statistics=session["statistics"])
 
 
 @app.route('/auth', methods=['GET'])
@@ -83,7 +83,7 @@ def callback():
 
 @app.route('/createplaylist', methods=['GET'])
 def createplaylist():
-	if 'credentials' in session and 'vid_ids' in session and 'playlist' not in session:
+	if 'credentials' in session and 'videos_data' in session and 'playlist' not in session:
 		credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 		vid_ids = [video["id"] for video in session["videos_data"]]
 		playlist_creator = Create_Playlist(API_SERVICE_NAME, API_VERSION, credentials)
