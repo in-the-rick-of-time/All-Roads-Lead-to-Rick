@@ -12,8 +12,7 @@ API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'
 
 app = Flask(__name__)
-app.secret_key = "rick"
-
+app.secret_key = os.urandom(12)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
