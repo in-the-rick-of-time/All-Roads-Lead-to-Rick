@@ -3,7 +3,9 @@ from search_alg import Search_Alg
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 from create_playlist import Create_Playlist
+import os
 
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 CLIENT_SECRETS_FILE = "client_secret.json"
 SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl']
 API_SERVICE_NAME = 'youtube'
@@ -45,7 +47,7 @@ def results():
 	if request.method == 'GET':
 		if "videos_data" not in session:
 			return redirect(url_for('home'))
-		return render_template('results.html', videos=session["videos_data"], statistics=session["statistics"])
+		return render_template('results.html')
 
 
 @app.route('/auth', methods=['GET'])
@@ -61,7 +63,7 @@ def auth():
 		access_type='offline',
 		include_granted_scopes='true'
 	)
-	session["state"] = state
+	session['state'] = state
 	return redirect(authorization_url)
 
 @app.route('/callback', methods=['GET'])
@@ -87,8 +89,8 @@ def createplaylist():
 		credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 		vid_ids = [video["id"] for video in session["videos_data"]]
 		playlist_creator = Create_Playlist(API_SERVICE_NAME, API_VERSION, credentials)
-		new_playlist_id = playlist_creator.createPlaylist(vid_ids)
-		return new_playlist_id
+		session['playlist'] = playlist_creator.createPlaylist(vid_ids)
+		return redirect(url_for('results'))
 	else:
 		return redirect(url_for('home'))
 

@@ -18,7 +18,6 @@ class Create_Playlist():
 		return playlist_id
 
 	def insertVideos(self, playlist_id, vid_ids):
-		new_playlist_id = self.newEmptyPlaylist()
 		batch = self.youtube.new_batch_http_request()
 		for videoId in vid_ids:
 			request = self.youtube.playlistItems().insert(
@@ -34,7 +33,7 @@ class Create_Playlist():
 				}
 			)
 			try:
-				response = request.execute()
+				request.execute()
 			except HttpError as e:
 				error_response = json.loads(e.content)
 				error_code = error_response['error']['code']

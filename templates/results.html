@@ -17,7 +17,7 @@
       Rick has been found!
     </div>
     <ul class="cards">
-      {% for vid in videos %}
+      {% for vid in session['videos_data'] %}
       <li class="card">
         <div class="container">
           <a href="https://www.youtube.com/watch?v={{vid['id']}}" target="_blank" rel="noopener noreferrer">
@@ -32,30 +32,38 @@
     </ul>
   </div>
   <div class="container" style="padding-bottom: 25px;">
-    <p>
-    <form action="/auth" method="get">
-      <button type="submit" class="button"><img src="/static/images/youtube.jpg" class="img"> Generate Youtube Playlist!</button>
-    </form>
-    </p>
+    {% if 'playlist' in session %} <!-- if playlist created, display link. Else, display button to create -->
+      <div class="row">
+        <p>Your playlist is ready:
+          <a href="https://www.youtube.com/playlist?list={{session['playlist']}}" target="_blank">My Playlist</a>
+        </p>
+      </div>
+    {% else %}
+      <p>
+        <form action="/auth" method="get">
+        <button type="submit" class="button"><img src="/static/images/youtube.jpg" class="img"> Generate Youtube Playlist!</button>
+        </form>
+      </p>
+    {% endif %}
     <dl class="row">
       <dt class="col-sm-3">Total Duration</dt>
       <dd class="col-sm-9">Your playlist's duration is
         <em><b>
-            {{ statistics['duration'] }}</b>
+            {{ session['statistics']['duration'] }}</b>
         </em> seconds.
       </dd>
 
       <dt class="col-sm-3">Total Viewcount</dt>
       <dd class="col-sm-9">Your playlist has gathered a total of
         <em><b>
-            {{ statistics['viewcount'] }}</b>
+            {{ session['statistics']['viewcount'] }}</b>
         </em> views.
       </dd>
 
       <dt class="col-sm-3">Iterations</dt>
       <dd class="col-sm-9">Your playlist has taken
         <em><b>
-            {{ statistics['count'] }}</b>
+            {{ session['statistics']['count'] }}</b>
         </em> iterations to reach Rick Astley.
       </dd>
     </dl>
