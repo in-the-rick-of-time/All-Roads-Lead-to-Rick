@@ -94,7 +94,7 @@
             var key = document.getElementById("APIkey").value;
             var url = document.getElementById("youtubeURL").value;
             var errorFound = false;
-            const youtubeRegex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+            const youtubeRegex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/watch\?v=.+$/;
 
             if (key == "") {
               keyError.innerHTML="This is a required field.";

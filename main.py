@@ -27,11 +27,11 @@ def home():
 		try:
 			session["videos_data"], session["statistics"] = rickbot.find_rick(starting_vid_url=startingvid)
 		except ValueError as e:
-			if str(e) == "400":
+			if str(e) == "400": # invalid url
 				return render_template("400.html")
-			elif str(e) == "403":
+			elif str(e) == "403": # ran out of quota or yt api not enabled
 				return render_template("403.html")
-			else:
+			else: # idk what's going on
 				return render_template("500.html")
 				
 		return redirect(url_for('results'))
@@ -88,7 +88,13 @@ def createplaylist():
 	if 'credentials' in session and 'videos_data' in session and 'playlist' not in session:
 		credentials = google.oauth2.credentials.Credentials(**session['credentials'])
 		vid_ids = [video["id"] for video in session["videos_data"]]
-		playlist_creator = Create_Playlist(API_SERVICE_NAME, API_VERSION, credentials)
+		try:
+			playlist_creator = Create_Playlist(API_SERVICE_NAME, API_VERSION, credentials)
+		except ValueError as e:
+			if str(e) == "403": # we ran out of quota oops
+				return render_template('playlist403.html')
+			else: # idk what's going on
+				return render_template('500.html')
 		session['playlist'] = playlist_creator.createPlaylist(vid_ids)
 		return redirect(url_for('results'))
 	else:

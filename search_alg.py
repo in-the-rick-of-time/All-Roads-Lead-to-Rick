@@ -59,7 +59,11 @@ class Search_Alg():
 
 	def id_from_url(self, url):
 		regex = r"(?<=\?v=)[a-zA-Z0-9_-]+(?=&)?" # extract id from url (nested between "v=" and "&" if channel name included in url)
-		return re.search(regex, url).group()
+		try:
+			vid_id = re.search(regex, url).group()
+		except:
+			raise ValueError(400)
+		return vid_id
 
 	def update_details_and_stats_lsts(self, vid_id, vid_title=None, channel_title=None): # update global lists of visited vid_details and stats
 		if vid_title == None or channel_title == None: # account for starting video which has not been searched
@@ -202,3 +206,6 @@ class Search_Alg():
 			response = self.handle_request(request)
 			related_vids_lst += response["items"] # combine the list of related vids for all searches
 		return related_vids_lst
+
+#test = Search_Alg(api_key="test")
+#test.find_rick("test")
