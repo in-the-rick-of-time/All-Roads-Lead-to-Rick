@@ -7,16 +7,17 @@ output_dict = dict()
 seen_vids = set()
 
 def main():
+	API_KEY = "{INPUT YOUR API KEY HERE}"
+
 	# Disable OAuthlib's HTTPS verification when running locally.
 	# *DO NOT* leave this option enabled in production.
-
 	os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 	api_service_name = "youtube"
 	api_version = "v3"
 
 	youtube = googleapiclient.discovery.build(
-		api_service_name, api_version, developerKey="***REMOVED***")
+		api_service_name, api_version, developerKey=API_KEY)
 
 	add_my_tags(youtube, "dQw4w9WgXcQ", 5)
 	add_related_tags(youtube, "dQw4w9WgXcQ", 3)
