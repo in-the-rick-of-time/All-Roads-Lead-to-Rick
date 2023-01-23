@@ -8,6 +8,7 @@ seen_vids = set()
 
 def main():
 	API_KEY = "{INPUT YOUR API KEY HERE}"
+	RICKROLL_ID = "dQw4w9WgXcQ"
 
 	# Disable OAuthlib's HTTPS verification when running locally.
 	# *DO NOT* leave this option enabled in production.
@@ -19,8 +20,8 @@ def main():
 	youtube = googleapiclient.discovery.build(
 		api_service_name, api_version, developerKey=API_KEY)
 
-	add_my_tags(youtube, "dQw4w9WgXcQ", 5)
-	add_related_tags(youtube, "dQw4w9WgXcQ", 3)
+	add_my_tags(youtube, RICKROLL_ID, 5)
+	add_related_tags(youtube, RICKROLL_ID, 3)
 
 	with open('json_data.json', 'w') as outfile:
 		json.dump(output_dict, outfile)
