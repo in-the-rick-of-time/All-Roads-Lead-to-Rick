@@ -206,6 +206,3 @@ class Search_Alg():
 			response = self.handle_request(request)
 			related_vids_lst += response["items"] # combine the list of related vids for all searches
 		return related_vids_lst
-
-#test = Search_Alg(api_key="test")
-#test.find_rick("test")
