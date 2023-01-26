@@ -3,7 +3,6 @@ from collections import namedtuple
 import googleapiclient.discovery
 from googleapiclient.errors import HttpError
 import re
-import sys
 
 class Search_Alg():
 

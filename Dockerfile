@@ -10,14 +10,6 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY . ./
 
-#install fonts
-FROM alpine:3.14
-WORKDIR /app
-COPY ./aero.ttf ./
-RUN mkdir -p /fonts
-RUN install -m644 aero.ttf /fonts
-RUN rm ./my-custom-font.ttf
-
 # Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
 
