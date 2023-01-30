@@ -55,7 +55,7 @@ The web app is now running locally. Enjoy!
 ### FAQ ###
 
 #### How does the bot work? ####
-The application makes use of youtube metadata to make informed decisions on choosing the best suggested video to bring it closer to the Rick Astley video. Our bot scores videos based on `data/tag_data.json` and `data/title.json`, choosing the suggested video with the highest score when navigating to Rick. To create `data/tag_data.json`, we scraped from 900 videos related to the Rick Astley video using `data/rank_tags.py`. Our bot also prioritises videos with the same cateogry ID as Rick.
+The application makes use of youtube metadata to make informed decisions on choosing the best suggested video to bring it closer to the Rick Astley video. Our bot scores videos based on `data/tag_data.json` and `data/title.json`, choosing the suggested video with the highest score when navigating to Rick. To create `data/tag_data.json`, we scraped from 900 videos related to the Rick Astley video using `data/rank_tags.py`. Our bot also prioritises videos with the same category ID as Rick.
 
 #### Can this bot be applied for other videos? ####
-The Python scripts employed are actually fairly flexible, and the destination video can be changed quite easily. By changing the target video for `main.py` and `data/rank_tags.py`, the bot can be used to find other videos as well. Do note that `title_data.json` was manually curated, and would also require input to change it for use with other videos.
+The Python scripts employed are actually fairly flexible, and the destination video can be changed quite easily. By changing the target video for `main.py` and `data/rank_tags.py`, the bot can be used to find other videos as well. Do note that `title_data.json` was manually curated, and would also require input to adapt for use with other videos.
