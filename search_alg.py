@@ -11,11 +11,13 @@ class Search_Alg():
 	TAGS_JSON_FILENAME = "data/tag_data.json"
 	TITLE_JSON_FILENAME = "data/title_data.json"
 	MAX_RESULTS = 100
+	LOOP_CAP = 40 # maximum number of loops before we just give up
 
 	def __init__(self, api_key):
 		self.visited_channels = set() # get list of visited channels and categories. We do not revisit them
 		self.visited_vid_details = list()
 		self.statistics = {"duration":0, "viewcount":0, "count":0}
+		self.loop_counter = 0 # count number of loops
 		
 		with open(self.TAGS_JSON_FILENAME) as tags_file:
 			self.scored_tags = json.load(tags_file)
@@ -32,6 +34,8 @@ class Search_Alg():
 		curr_vid_id = starting_id
 		self.update_details_and_stats_lsts(starting_id)
 		while curr_vid_id != self.RICKROLL_ID:
+			if self.loop_counter >= self.LOOP_CAP:
+				raise ValueError(508)
 			request = self.youtube.search().list( # get list of related videos to current video
 			part="snippet",
 			relatedToVideoId=curr_vid_id,
@@ -43,6 +47,8 @@ class Search_Alg():
 			curr_vid_details = self.get_best_related(response) # choose the best suggested video
 			self.update_details_and_stats_lsts(curr_vid_details.vid_id, curr_vid_details.vid_title, curr_vid_details.channel_title)
 			curr_vid_id = curr_vid_details.vid_id
+
+			self.loop_counter += 1
 
 		else:
 			return self.visited_vid_details, self.statistics
@@ -174,6 +180,9 @@ class Search_Alg():
 			if score > best_video.score or first_music_video: # if is the only music video or has the highest score so far
 				best_video = videoDetails(vid_id, vid_title, channel_title, cat_id, score)
 
+		if best_video.vid_id == "vid_id": # ie the bot is not replacing the default video, ran out of options
+			raise ValueError(508)
+		
 		self.visited_channels.add(best_video.channel_title) # Adds channel of best video into visited channels. Let's not go back
 
 		return best_video

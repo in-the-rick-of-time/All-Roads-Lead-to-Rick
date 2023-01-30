@@ -32,6 +32,8 @@ def home():
 				return render_template("400.html")
 			elif str(e) == "403": # ran out of quota or yt api not enabled
 				return render_template("403.html")
+			elif str(e) == "508":
+				return render_template("508.html")
 			else: # idk what's going on
 				return render_template("500.html")
 				
