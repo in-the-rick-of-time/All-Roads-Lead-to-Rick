@@ -10,13 +10,7 @@
         <!--<link rel="stylesheet" href="styles.css">-->
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <script type="text/javascript">
-    
-          function loading() {
-          document.getElementById("loading").style.display = "block";
-          document.getElementById("content").style.display = "none";
-          }
-        </script>
+        
         <title>All Roads Lead to Rick</title>
 
       </head>
@@ -33,6 +27,7 @@
         <div class="split-right">
           <div id="error" class="centered">
           <h2 class="title">All Roads Lead To Rick</h2>
+          
             <form action="/" method="POST" onsubmit="return validateForm()" style="width: 300px;" method="post">
                 <div class="form-group" style="padding-bottom: 0.2cm;">
                 <input name="APIkey" 
@@ -80,7 +75,7 @@
                 placeholder="Youtube URL">
                 <p id="urlError" class="error-message"></p>
                 </div>
-                <button type="submit" class="btn btn-primary" onclick="loading();">Let's Go!!</button>
+                <button type="submit" class="btn btn-primary">Let's Go!!</button>
               </form>
 
           </div>
@@ -90,6 +85,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         
         <script>
+           function loading() {
+          document.getElementById("loading").style.display = "block";
+          document.getElementById("content").style.display = "none";
+          }
+
           function validateForm(){
             var key = document.getElementById("APIkey").value;
             var url = document.getElementById("youtubeURL").value;
@@ -112,8 +112,10 @@
             }
             if(errorFound){
               return false;
-            } else{
-              return true;
+            } 
+            else
+            {
+              return loading();
             }
             }
 
