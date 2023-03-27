@@ -96,12 +96,14 @@ def createplaylist():
 		vid_ids = [video["id"] for video in session["videos_data"]]
 		try:
 			playlist_creator = Create_Playlist(API_SERVICE_NAME, API_VERSION, credentials)
+			session['playlist'] = playlist_creator.createPlaylist(vid_ids)
 		except ValueError as e:
 			if str(e) == "403": # we ran out of quota oops
 				return render_template('playlist403.html')
+			elif str(e) == "409":
+				return render_template('playlist409.html')
 			else: # idk what's going on
 				return render_template('500.html')
-		session['playlist'] = playlist_creator.createPlaylist(vid_ids)
 		return redirect(url_for('results'))
 	else:
 		return redirect(url_for('home'))
