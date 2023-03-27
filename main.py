@@ -71,20 +71,23 @@ def auth():
 
 @app.route('/callback', methods=['GET'])
 def callback():
-	state = session['state']
+	try:
+		state = session['state']
 
-	flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-	  CLIENT_SECRETS_FILE, scopes=SCOPES, state=state)
-	flow.redirect_uri = url_for('callback', _external=True)
+		flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+		CLIENT_SECRETS_FILE, scopes=SCOPES, state=state)
+		flow.redirect_uri = url_for('callback', _external=True)
 
-	authorization_response = request.url
-	flow.fetch_token(authorization_response=authorization_response)
+		authorization_response = request.url
+		flow.fetch_token(authorization_response=authorization_response)
 
-	credentials = flow.credentials
-	print(credentials)
-	session['credentials'] = credentials_to_dict(credentials)
+		credentials = flow.credentials
 
-	return redirect(url_for('createplaylist'))
+		session['credentials'] = credentials_to_dict(credentials)
+
+		return redirect(url_for('createplaylist'))
+	except:
+		return render_template("401.html")
 
 @app.route('/createplaylist', methods=['GET'])
 def createplaylist():
